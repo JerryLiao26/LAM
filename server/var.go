@@ -4,19 +4,19 @@ package main
 type Command string
 
 // SERVE command
-var SERVE Command = "serve"
+const SERVE Command = "serve"
 
 // START command
-var START Command = "start"
+const START Command = "start"
 
 // GEN command
-var GEN Command = "gen"
+const GEN Command = "gen"
 
 // SET command
-var SET Command = "set"
+const SET Command = "set"
 
 // HELP command
-var HELP Command = "help"
+const HELP Command = "help"
 
 // Supported commands
 var supportedCommand = [...]Command{SERVE, START, GEN, SET, HELP}
@@ -25,13 +25,13 @@ var supportedCommand = [...]Command{SERVE, START, GEN, SET, HELP}
 type LogLevel string
 
 // INFO level
-var INFO LogLevel = "INFO"
+const INFO LogLevel = "INFO"
 
 // WARN level
-var WARN LogLevel = "WARN"
+const WARN LogLevel = "WARN"
 
 // ERROR level
-var ERROR LogLevel = "ERROR"
+const ERROR LogLevel = "ERROR"
 
 // Config path
 type confPath struct {
