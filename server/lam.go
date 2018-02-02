@@ -5,27 +5,6 @@ import (
 	"os"
 )
 
-// Command is to defined supported command
-type Command string
-
-// SERVE command
-var SERVE Command = "serve"
-
-// START command
-var START Command = "start"
-
-// GEN command
-var GEN Command = "gen"
-
-// SET command
-var SET Command = "set"
-
-// HELP command
-var HELP Command = "help"
-
-// Supported commands
-var supportedCommand = [...]Command{SERVE, START, GEN, SET, HELP}
-
 func str2comm(str string) Command {
 	return Command(str)
 }
@@ -53,12 +32,14 @@ func setHandler() {
 
 func helpHandler() {
 	fmt.Println("Usage:")
-	fmt.Println("lam-cli [command] [args...]")
+	fmt.Println("lam [command] [args...]")
 	fmt.Println("Commands:")
 	// Print help text
 	fmt.Println("help                       Print help text")
-	fmt.Println("start [address]:[port]     Start server")
-	fmt.Println("serve [address]:[port]     Start server deamon")
+	fmt.Println("start                      Start server on last used address and port")
+	// fmt.Println("serve                      Start server deamon on last used address and port")
+	fmt.Println("start [address]:[port]     Start server on provided address and port")
+	// fmt.Println("serve [address]:[port]     Start server deamon on provided address and port")
 	fmt.Println("gen [tag]                  Generate token for provided tag")
 	fmt.Println("set [username]:[password]  Set database connection info")
 }

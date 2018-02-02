@@ -10,13 +10,13 @@ Navigate to server folder and run command:
 ```
 go build *
 ```
-And you'll get executable file ```lam-cli``` or ```lam-cli.exe```(under Windows OS) or else. If you're using *nix systems, we suggest you copy the executable file to paths like ```/usr/bin/``` so you can run the command globally. After the copy, you can simply start a LAM server by:
+And you'll get executable file ```lam``` or ```lam.exe```(under Windows OS) or else. If you're using *nix systems, we suggest you copy the executable file to paths like ```/usr/bin/``` so you can run the command globally. After the copy, you can simply start a LAM server by:
 ```
-lam-cli start
+lam start
 ```
 For more help about the commands, you can run:
 ```
-lam-cli help
+lam help
 ```
 
 ## Configure
