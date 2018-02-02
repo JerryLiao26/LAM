@@ -53,7 +53,7 @@ func setHandler() {
 
 func helpHandler() {
 	fmt.Println("Usage:")
-	fmt.Println("lam [command] [args...]")
+	fmt.Println("lam-cli [command] [args...]")
 	fmt.Println("Commands:")
 	// Print help text
 	fmt.Println("help                       Print help text")
