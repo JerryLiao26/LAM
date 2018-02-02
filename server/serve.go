@@ -103,13 +103,13 @@ func sendHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func main() {
+func serve(serveString string) {
 	// Handlers
 	http.HandleFunc("/send", sendHandler)
 	http.HandleFunc("/hello", helloHandler)
 	// Server start
-	serverLogger("Starting", "Serve at http://127.0.0.1:12306", INFO)
-	err := http.ListenAndServe("127.0.0.1:12306", nil)
+	serverLogger("Starting", "Serve at "+serveString, INFO)
+	err := http.ListenAndServe(serveString, nil)
 	// Error
 	if err != nil {
 		serverLogger("Cannot start", err.Error(), ERROR)
