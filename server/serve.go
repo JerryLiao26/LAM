@@ -17,13 +17,7 @@ type serverRespond struct {
 	Method string `json:"method"`
 }
 
-type openSendRespond struct {
-	Code   int    `json:"code"`
-	Text   string `json:"text"`
-	Sender string `json:"sender"`
-}
-
-type trustedSendRespond struct {
+type sendRespond struct {
 	Code   int    `json:"code"`
 	Tag    string `json:"tag"`
 	Text   string `json:"text"`
@@ -59,23 +53,41 @@ func sendHandler(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			serverLogger("JSON parse error", err.Error(), ERROR)
 		}
-		// TODO: checking token
-
-		// TODO: storing database
-
-		//  Response to client
-		user := "jerryliao" // Test use only
-		sr := serverRespond{
-			Code:   200,
-			Method: r.Method,
-			Text:   "Message from " + user + " saved",
+		// Checking token
+		res := queryToken(m.Token)
+		if res == "" {
+			serverLogger("Token invalid", m.Token, WARN)
+		} else {
+			user := res
+			// Storing data
+			if storeMessage(user, m.Text) {
+				//  Response to client
+				sr := serverRespond{
+					Code:   200,
+					Method: r.Method,
+					Text:   "Message from " + user + " saved",
+				}
+				output, err := json.Marshal(sr)
+				if err != nil {
+					serverLogger("JSON build error", err.Error(), ERROR)
+				}
+				fmt.Fprintf(w, string(output))
+				serverLogger("Message from", user, INFO)
+			} else {
+				//  Response to client
+				sr := serverRespond{
+					Code:   500,
+					Method: r.Method,
+					Text:   "Message from " + user + " could not save",
+				}
+				output, err := json.Marshal(sr)
+				if err != nil {
+					serverLogger("JSON build error", err.Error(), ERROR)
+				}
+				fmt.Fprintf(w, string(output))
+				serverLogger("Message saving failed", user, ERROR)
+			}
 		}
-		output, err := json.Marshal(sr)
-		if err != nil {
-			serverLogger("JSON build error", err.Error(), ERROR)
-		}
-		fmt.Fprintf(w, string(output))
-		serverLogger("Message from", user, INFO)
 	} else {
 		sr := serverRespond{
 			Code:   400,
