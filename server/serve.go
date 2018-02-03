@@ -56,6 +56,17 @@ func sendHandler(w http.ResponseWriter, r *http.Request) {
 		// Checking token
 		res := checkToken(m.Token)
 		if res == "" {
+			//  Response to client
+			sr := serverRespond{
+				Code:   400,
+				Method: r.Method,
+				Text:   "Token invalid",
+			}
+			output, err := json.Marshal(sr)
+			if err != nil {
+				serverLogger("JSON build error", err.Error(), ERROR)
+			}
+			fmt.Fprintf(w, string(output))
 			serverLogger("Token invalid", m.Token, WARN)
 		} else {
 			user := res
