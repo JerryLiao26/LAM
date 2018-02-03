@@ -54,7 +54,7 @@ func sendHandler(w http.ResponseWriter, r *http.Request) {
 			serverLogger("JSON parse error", err.Error(), ERROR)
 		}
 		// Checking token
-		res := queryToken(m.Token)
+		res := checkToken(m.Token)
 		if res == "" {
 			serverLogger("Token invalid", m.Token, WARN)
 		} else {
@@ -103,7 +103,9 @@ func sendHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func serve(serveString string) {
+func serve() {
+	// Get serve string
+	serveString := serveConf.addr + ":" + serveConf.port
 	// Handlers
 	http.HandleFunc("/send", sendHandler)
 	http.HandleFunc("/hello", helloHandler)
