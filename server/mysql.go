@@ -13,15 +13,20 @@ func databaseError(err error) {
 	}
 }
 
+func initString() string {
+	dbString := dbConf.username + ":" + dbConf.password + "@tcp(" + dbConf.addr + ":" + dbConf.port + ")/LAM?charset=utf8&parseTime=true"
+	return dbString
+}
+
 func checkToken(cliToken string) string {
 	// Make connect string
-	dbString := dbConf.username + ":" + dbConf.password + "@tcp(" + dbConf.addr + ":" + dbConf.port + ")/LAM?charset=utf8&parseTime=true"
+	dbString := initString()
 	// Connect
 	db, err := sql.Open("mysql", dbString)
 	databaseError(err)
 
 	// Query
-	res, err := db.Query("SELECT * FROM token WHERE token=?")
+	res, err := db.Query("SELECT * FROM token")
 	databaseError(err)
 
 	db.Close()
@@ -45,7 +50,7 @@ func checkToken(cliToken string) string {
 
 func checkTagDuplicate(cliTag string) bool {
 	// Make connect string
-	dbString := dbConf.username + ":" + dbConf.password + "@tcp(" + dbConf.addr + ":" + dbConf.port + ")/LAM?charset=utf8&parseTime=true"
+	dbString := initString()
 	// Connect
 	db, err := sql.Open("mysql", dbString)
 	databaseError(err)
@@ -74,10 +79,11 @@ func checkTagDuplicate(cliTag string) bool {
 }
 
 func storeMessage(tag string, content string) bool {
+	// Make connect string
+	dbString := initString()
 	// Connect
-	db, err := sql.Open("mysql", "LAM:lamLAM@tcp(127.0.0.1:3306)/LAM?charset=utf8&parseTime=true")
+	db, err := sql.Open("mysql", dbString)
 	databaseError(err)
-
 	// Statement
 	stmt, err := db.Prepare("INSERT message SET tag=?, content=?, timestamp=?, ifRead=?")
 	databaseError(err)
@@ -99,8 +105,10 @@ func storeMessage(tag string, content string) bool {
 }
 
 func storeToken(tag string, token string) bool {
+	// Make connect string
+	dbString := initString()
 	// Connect
-	db, err := sql.Open("mysql", "LAM:lamLAM@tcp(127.0.0.1:3306)/LAM?charset=utf8&parseTime=true")
+	db, err := sql.Open("mysql", dbString)
 	databaseError(err)
 
 	// Statement
@@ -124,8 +132,10 @@ func storeToken(tag string, token string) bool {
 }
 
 func delToken(cliTag string) bool {
+	// Make connect string
+	dbString := initString()
 	// Connect
-	db, err := sql.Open("mysql", "LAM:lamLAM@tcp(127.0.0.1:3306)/LAM?charset=utf8&parseTime=true")
+	db, err := sql.Open("mysql", dbString)
 	databaseError(err)
 
 	// Statement
@@ -149,8 +159,10 @@ func delToken(cliTag string) bool {
 }
 
 func fetchToken() []string {
+	// Make connect string
+	dbString := initString()
 	// Connect
-	db, err := sql.Open("mysql", "LAM:lamLAM@tcp(127.0.0.1:3306)/LAM?charset=utf8&parseTime=true")
+	db, err := sql.Open("mysql", dbString)
 	databaseError(err)
 
 	// Query

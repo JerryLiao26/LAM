@@ -66,5 +66,5 @@ func saveConf() {
 		str := string(confItems[i]) + ":" + *confItemMatcher[i] + "\n"
 		writer.WriteString(str)
 	}
-	// writer.Flush()
+	writer.Flush()
 }
