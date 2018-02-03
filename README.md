@@ -3,7 +3,7 @@ LAM is Leave-A-Message, a web-based light-weight message center
 
 ## Build
 ### Prepare for it
-To build LAM server, you first need ```go``` package installed on your OS. Then, make sure you have MySQL driver for golang from [github.com/go-sql-driver/mysql](https://github.com/go-sql-driver/mysql). And of course you should have ```MySQL``` or ```MariaDB``` ready. We currently only support **LOCAL** database.
+To build LAM server, you first need ```go``` package installed on your OS. Then, make sure you have MySQL driver for golang from [github.com/go-sql-driver/mysql](https://github.com/go-sql-driver/mysql). And of course you should have ```MySQL``` or ```MariaDB``` ready. We currently only support *LOCAL* database.
 
 ### Build and use
 Navigate to server folder and run command:
@@ -41,6 +41,8 @@ To use LAM server, you need a database named ```LAM```, and tables as follows:
   - token(VARCHAR)
   - timestamp(TIMESTAMP)
 
+There's an sql file under ```sql/``` for you to import
+
 ## APIs
 ### /hello
 - Method: Any
@@ -65,5 +67,9 @@ To use LAM server, you need a database named ```LAM```, and tables as follows:
 ```
 - Respond:
 ```json
-
+{
+	"code": 200,
+	"text": "Message from Your tag saved",
+	"method": "POST"
+}
 ```
