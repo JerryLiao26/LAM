@@ -14,8 +14,10 @@ func databaseError(err error) {
 }
 
 func checkToken(cliToken string) string {
+	// Make connect string
+	dbString := dbConf.username + ":" + dbConf.password + "@tcp(" + dbConf.addr + ":" + dbConf.port + ")/LAM?charset=utf8&parseTime=true"
 	// Connect
-	db, err := sql.Open("mysql", "LAM:lamLAM@tcp(127.0.0.1:3306)/LAM?charset=utf8&parseTime=true")
+	db, err := sql.Open("mysql", dbString)
 	databaseError(err)
 
 	// Query
@@ -42,8 +44,10 @@ func checkToken(cliToken string) string {
 }
 
 func checkTagDuplicate(cliTag string) bool {
+	// Make connect string
+	dbString := dbConf.username + ":" + dbConf.password + "@tcp(" + dbConf.addr + ":" + dbConf.port + ")/LAM?charset=utf8&parseTime=true"
 	// Connect
-	db, err := sql.Open("mysql", "LAM:lamLAM@tcp(127.0.0.1:3306)/LAM?charset=utf8&parseTime=true")
+	db, err := sql.Open("mysql", dbString)
 	databaseError(err)
 
 	// Query
