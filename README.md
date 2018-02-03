@@ -3,7 +3,7 @@ LAM is Leave-A-Message, a web-based light-weight message center
 
 ## Build
 ### Prepare for it
-To build LAM server, you first need ```go``` package installed on your OS. Then, make sure you have mysql driver for golang from [github.com/go-sql-driver/mysql](https://github.com/go-sql-driver/mysql). And of course you should have ```mysql``` or ```mariadb``` ready. We currently only support **LOCAL** database.
+To build LAM server, you first need ```go``` package installed on your OS. Then, make sure you have MySQL driver for golang from [github.com/go-sql-driver/mysql](https://github.com/go-sql-driver/mysql). And of course you should have ```MySQL``` or ```MariaDB``` ready. We currently only support **LOCAL** database.
 
 ### Build and use
 Navigate to server folder and run command:
@@ -12,7 +12,7 @@ go build *
 ```
 And you'll get executable file ```lam``` or ```lam.exe```(under Windows OS) or else. If you're using *nix systems, we suggest you copy the executable file to paths like ```/usr/bin/``` so you can run the command globally. After the copy, you can simply start a LAM server by:
 ```
-lam start
+lam start 0.0.0.0:12580
 ```
 For more help about the commands, you can run:
 ```
@@ -20,7 +20,50 @@ lam help
 ```
 
 ## Configure
-working on this part...
+### Server
+At your first start, you shall go through a configure prompt, then everything should be settled. If you want to re-configure database settings, use:
+```
+lam set LAM:lamLAM
+```
+to set database username to LAM and password to lamLAM.
+
+### Database
+To use LAM server, you need a database named ```LAM```, and tables as follows:
+- message
+  - id(INT) [PRIMARY, AUTO_INCREMENT]
+  - tag(VARCHAR)
+  - content(TEXT)
+  - timestamp(TIMESTAMP)
+  - ifRead(TINYINT)
+
+- token
+  - tag(VARCHAR) [PRIMARY]
+  - token(VARCHAR)
+  - timestamp(TIMESTAMP)
 
 ## APIs
-working on this part...
+### /hello
+- Method: Any
+- Require: Nothing
+- Respond:
+```json
+{
+  "code": 200,
+  "text": "LAM Server here",
+  "method": "Method name"
+}
+```
+
+### /send
+- Method: POST
+- Require:
+```json
+{
+  "text": "Your message here",
+  "token": "Your token here"
+}
+```
+- Respond:
+```json
+
+```
