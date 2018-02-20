@@ -1,6 +1,9 @@
 # LAM
 LAM is Leave-A-Message, a web-based light-weight message center
 
+## Built Release
+[v0.1](https://github.com/JerryLiao26/LAM/releases/tag/v0.1)
+
 ## Build
 ### Prepare for it
 To build LAM server, you first need ```go``` package installed on your OS. Then, make sure you have MySQL driver for golang from [github.com/go-sql-driver/mysql](https://github.com/go-sql-driver/mysql). And of course you should have ```MySQL``` or ```MariaDB``` ready. We currently only support *LOCAL* database.
